@@ -157,6 +157,12 @@ public class Alquiler {
             );
         }
 
+        if (fechaDevolucionReal.isBefore(fechaInicio)) {
+            throw new IllegalArgumentException(
+                    "La fecha de devolución no puede ser anterior a la fecha de inicio."
+            );
+        }
+
         LocalDate fechaPrevista =
                 getFechaDevolucionPrevista();
 
@@ -182,6 +188,12 @@ public class Alquiler {
         if (fechaDevolucionReal == null) {
             throw new IllegalArgumentException(
                     "Debe indicar la fecha de devolución."
+            );
+        }
+
+        if (fechaDevolucionReal.isBefore(fechaInicio)) {
+            throw new IllegalArgumentException(
+                    "La fecha de devolución no puede ser anterior a la fecha de inicio."
             );
         }
 

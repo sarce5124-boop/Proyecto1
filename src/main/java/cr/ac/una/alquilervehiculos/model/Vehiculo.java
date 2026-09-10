@@ -31,6 +31,12 @@ public abstract class Vehiculo implements Alquilable {
      */
     @Override
     public double calcularCostoAlquiler(int dias) {
+        if (dias <= 0) {
+            throw new IllegalArgumentException(
+                    "La cantidad de días debe ser mayor a cero."
+            );
+        }
+
         return tarifaDiaria * dias;
     }
 

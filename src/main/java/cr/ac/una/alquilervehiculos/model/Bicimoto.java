@@ -14,6 +14,13 @@ public class Bicimoto extends Vehiculo {
      */
     public Bicimoto(String placa, String marca, double tarifaDiaria, String tipoMotor) {
         super(placa, marca, tarifaDiaria);
+
+        if (tipoMotor == null || tipoMotor.trim().isEmpty()) {
+            throw new IllegalArgumentException(
+                    "El tipo de motor es obligatorio."
+            );
+        }
+
         this.tipoMotor = tipoMotor;
     }
 
@@ -32,6 +39,12 @@ public class Bicimoto extends Vehiculo {
      * @param tipoMotor nuevo tipo de motor.
      */
     public void setTipoMotor(String tipoMotor) {
+        if (tipoMotor == null || tipoMotor.trim().isEmpty()) {
+            throw new IllegalArgumentException(
+                    "El tipo de motor es obligatorio."
+            );
+        }
+
         this.tipoMotor = tipoMotor;
     }
 

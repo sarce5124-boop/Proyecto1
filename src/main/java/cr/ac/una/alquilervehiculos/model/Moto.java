@@ -14,6 +14,13 @@ public class Moto extends Vehiculo {
      */
     public Moto(String placa, String marca, double tarifaDiaria, int cilindrada) {
         super(placa, marca, tarifaDiaria);
+
+        if (cilindrada <= 0) {
+            throw new IllegalArgumentException(
+                    "La cilindrada debe ser mayor a cero."
+            );
+        }
+
         this.cilindrada = cilindrada;
     }
 
@@ -32,6 +39,12 @@ public class Moto extends Vehiculo {
      * @param cilindrada nueva cilindrada en cc.
      */
     public void setCilindrada(int cilindrada) {
+        if (cilindrada <= 0) {
+            throw new IllegalArgumentException(
+                    "La cilindrada debe ser mayor a cero."
+            );
+        }
+
         this.cilindrada = cilindrada;
     }
 

@@ -14,6 +14,13 @@ public class Cuadraciclo extends Vehiculo {
      */
     public Cuadraciclo(String placa, String marca, double tarifaDiaria, String tipoTraccion) {
         super(placa, marca, tarifaDiaria);
+
+        if (tipoTraccion == null || tipoTraccion.trim().isEmpty()) {
+            throw new IllegalArgumentException(
+                    "El tipo de tracción es obligatorio."
+            );
+        }
+
         this.tipoTraccion = tipoTraccion;
     }
 
@@ -32,6 +39,12 @@ public class Cuadraciclo extends Vehiculo {
      * @param tipoTraccion nuevo tipo de tracción.
      */
     public void setTipoTraccion(String tipoTraccion) {
+        if (tipoTraccion == null || tipoTraccion.trim().isEmpty()) {
+            throw new IllegalArgumentException(
+                    "El tipo de tracción es obligatorio."
+            );
+        }
+
         this.tipoTraccion = tipoTraccion;
     }
 
