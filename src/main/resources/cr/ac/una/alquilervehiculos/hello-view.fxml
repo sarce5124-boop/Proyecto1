@@ -1,16 +1,150 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.VBox?>
 
-<?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
+<VBox spacing="10.0" xmlns:fx="http://javafx.com/fxml"
       fx:controller="cr.ac.una.alquilervehiculos.HelloController">
     <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
     </padding>
-
-    <Label fx:id="welcomeText"/>
-    <Button text="Hello!" onAction="#onHelloButtonClick"/>
+    <Label style="-fx-font-size: 20px; -fx-font-weight: bold;"
+           text="Sistema de alquiler de vehículos"/>
+    <TabPane VBox.vgrow="ALWAYS">
+        <Tab closable="false" text="Clientes">
+            <VBox spacing="10.0">
+                <padding>
+                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                </padding>
+                <GridPane hgap="8.0" vgap="8.0">
+                    <columnConstraints>
+                        <ColumnConstraints minWidth="130.0"/>
+                        <ColumnConstraints hgrow="ALWAYS"/>
+                    </columnConstraints>
+                    <Label text="Identificación:" GridPane.rowIndex="0"/>
+                    <TextField fx:id="identificacionField" GridPane.columnIndex="1"/>
+                    <Label text="Nombre:" GridPane.rowIndex="1"/>
+                    <TextField fx:id="nombreField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                    <Label text="Teléfono:" GridPane.rowIndex="2"/>
+                    <TextField fx:id="telefonoField" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                    <Label text="Correo:" GridPane.rowIndex="3"/>
+                    <TextField fx:id="correoField" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                </GridPane>
+                <Button maxWidth="Infinity" onAction="#registrarCliente"
+                        text="Registrar cliente"/>
+                <Label style="-fx-font-weight: bold;" text="Clientes registrados"/>
+                <ListView fx:id="clientesList" VBox.vgrow="ALWAYS"/>
+            </VBox>
+        </Tab>
+        <Tab closable="false" text="Inventario">
+            <VBox spacing="10.0">
+                <padding>
+                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                </padding>
+                <GridPane hgap="8.0" vgap="8.0">
+                    <columnConstraints>
+                        <ColumnConstraints minWidth="130.0"/>
+                        <ColumnConstraints hgrow="ALWAYS"/>
+                    </columnConstraints>
+                    <Label text="Tipo:" GridPane.rowIndex="0"/>
+                    <ComboBox fx:id="tipoVehiculoCombo" maxWidth="Infinity"
+                              GridPane.columnIndex="1"/>
+                    <Label text="Placa:" GridPane.rowIndex="1"/>
+                    <TextField fx:id="placaField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                    <Label text="Marca:" GridPane.rowIndex="2"/>
+                    <TextField fx:id="marcaField" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                    <Label text="Tarifa diaria:" GridPane.rowIndex="3"/>
+                    <TextField fx:id="tarifaField" promptText="Ej. 15000"
+                               GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                    <Label fx:id="caracteristicaLabel" text="Característica:"
+                           GridPane.rowIndex="4"/>
+                    <TextField fx:id="caracteristicaField" GridPane.columnIndex="1"
+                               GridPane.rowIndex="4"/>
+                </GridPane>
+                <Button maxWidth="Infinity" onAction="#registrarVehiculo"
+                        text="Registrar vehículo"/>
+                <Label style="-fx-font-weight: bold;" text="Flota registrada"/>
+                <ListView fx:id="vehiculosList" VBox.vgrow="ALWAYS"/>
+            </VBox>
+        </Tab>
+        <Tab closable="false" text="Alquiler">
+            <VBox spacing="10.0">
+                <padding>
+                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                </padding>
+                <GridPane hgap="8.0" vgap="8.0">
+                    <columnConstraints>
+                        <ColumnConstraints minWidth="150.0"/>
+                        <ColumnConstraints hgrow="ALWAYS"/>
+                    </columnConstraints>
+                    <Label text="Cliente:" GridPane.rowIndex="0"/>
+                    <ComboBox fx:id="clienteAlquilerCombo" maxWidth="Infinity"
+                              GridPane.columnIndex="1"/>
+                    <Label text="Vehículo disponible:" GridPane.rowIndex="1"/>
+                    <ComboBox fx:id="vehiculoAlquilerCombo" maxWidth="Infinity"
+                              GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                    <Label text="Fecha de inicio:" GridPane.rowIndex="2"/>
+                    <DatePicker fx:id="fechaInicioPicker" maxWidth="Infinity"
+                                GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                    <Label text="Cantidad de días:" GridPane.rowIndex="3"/>
+                    <Spinner fx:id="diasSpinner" maxWidth="Infinity"
+                             GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                    <Label text="Depósito de garantía:" GridPane.rowIndex="4"/>
+                    <TextField fx:id="depositoField" promptText="Ej. 50000"
+                               GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+                    <Label text="Costo del alquiler:" GridPane.rowIndex="5"/>
+                    <Label fx:id="costoAlquilerLabel" text="₡0.00"
+                           GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+                    <Label text="Total inicial:" GridPane.rowIndex="6"/>
+                    <Label fx:id="totalAlquilerLabel" style="-fx-font-weight: bold;"
+                           text="₡0.00" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+                </GridPane>
+                <Button maxWidth="Infinity" onAction="#registrarAlquiler"
+                        text="Confirmar alquiler"/>
+                <Label style="-fx-font-weight: bold;" text="Alquileres activos"/>
+                <ListView fx:id="alquileresActivosList" VBox.vgrow="ALWAYS"/>
+            </VBox>
+        </Tab>
+        <Tab closable="false" text="Devolución">
+            <VBox spacing="10.0">
+                <padding>
+                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                </padding>
+                <GridPane hgap="8.0" vgap="8.0">
+                    <columnConstraints>
+                        <ColumnConstraints minWidth="180.0"/>
+                        <ColumnConstraints hgrow="ALWAYS"/>
+                    </columnConstraints>
+                    <Label text="Alquiler activo:" GridPane.rowIndex="0"/>
+                    <ComboBox fx:id="devolucionCombo" maxWidth="Infinity"
+                              GridPane.columnIndex="1"/>
+                    <Label text="Fecha de devolución:" GridPane.rowIndex="1"/>
+                    <DatePicker fx:id="fechaDevolucionPicker" maxWidth="Infinity"
+                                GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                    <Label text="Multa a cobrar:" GridPane.rowIndex="2"/>
+                    <Label fx:id="multaLabel" text="₡0.00"
+                           GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                    <Label text="Depósito a devolver:" GridPane.rowIndex="3"/>
+                    <Label fx:id="depositoDevolverLabel" text="₡0.00"
+                           GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                    <Label text="Resultado:" GridPane.rowIndex="4"/>
+                    <Label fx:id="totalDevolucionLabel" style="-fx-font-weight: bold;"
+                           text="₡0.00" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+                </GridPane>
+                <Button maxWidth="Infinity" onAction="#devolverVehiculo"
+                        text="Confirmar devolución"/>
+            </VBox>
+        </Tab>
+    </TabPane>
 </VBox>
