@@ -15,8 +15,6 @@ public class AlquilerService {
     private Repositorio<Alquiler> alquileres;
     private int siguienteId;
 
-    private static final double PORCENTAJE_MULTA_ATRASO = 0.25;
-
     /**
      * Crea el servicio de alquileres.
      */
@@ -74,9 +72,9 @@ public class AlquilerService {
             );
         }
 
-        if (depositoGarantia < 0) {
+        if (depositoGarantia <= 0) {
             throw new IllegalArgumentException(
-                    "El depósito de garantía no puede ser negativo."
+                    "El depósito de garantía debe ser mayor a cero."
             );
         }
 
@@ -102,7 +100,7 @@ public class AlquilerService {
 
     /**
      * Calcula la multa por atraso.
-     * Se cobra un 25% de la tarifa diaria
+     * Se cobra una tarifa diaria completa
      * por cada día de atraso.
      *
      * @param alquiler alquiler que se desea evaluar.
@@ -130,15 +128,13 @@ public class AlquilerService {
                 alquiler.getVehiculo()
                         .getTarifaDiaria();
 
-        double multaPorDia =
-                tarifaDiaria
-                        * PORCENTAJE_MULTA_ATRASO;
-
-        return diasAtraso * multaPorDia;
+        return diasAtraso * tarifaDiaria;
     }
 
     /**
      * Calcula cuánto depósito se debe devolver al cliente.
+     * El depósito se devuelve completo y la multa
+     * por atraso se cobra por separado.
      *
      * @param alquiler alquiler que se está devolviendo.
      * @param fechaDevolucionReal fecha real de devolución.
@@ -148,45 +144,27 @@ public class AlquilerService {
             Alquiler alquiler,
             LocalDate fechaDevolucionReal) {
 
-        double multa =
-                calcularMulta(
-                        alquiler,
-                        fechaDevolucionReal
-                );
+        validarAlquiler(alquiler);
+        alquiler.calcularDiasAtraso(fechaDevolucionReal);
 
-        double deposito =
-                alquiler.getDepositoGarantia();
-
-        return Math.max(
-                0,
-                deposito - multa
-        );
+        return alquiler.getDepositoGarantia();
     }
 
     /**
-     * Calcula el monto adicional que el cliente
-     * debe pagar cuando la multa supera el depósito.
+     * Calcula el monto que el cliente debe pagar
+     * por concepto de multa al devolver el vehículo.
      *
      * @param alquiler alquiler que se está devolviendo.
      * @param fechaDevolucionReal fecha real de devolución.
-     * @return monto pendiente por pagar.
+     * @return monto de la multa que se debe cobrar.
      */
     public double calcularMontoPendiente(
             Alquiler alquiler,
             LocalDate fechaDevolucionReal) {
 
-        double multa =
-                calcularMulta(
-                        alquiler,
-                        fechaDevolucionReal
-                );
-
-        double deposito =
-                alquiler.getDepositoGarantia();
-
-        return Math.max(
-                0,
-                multa - deposito
+        return calcularMulta(
+                alquiler,
+                fechaDevolucionReal
         );
     }
 
